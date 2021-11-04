@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
   frontend:
-    image: a1x40v/holyshop-frontend:1
+    image: a1x40v/holyshop:frontend
     ports:
       - 4000:4000
 
