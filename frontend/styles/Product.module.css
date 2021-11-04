@@ -1,0 +1,16 @@
+.wrapper {
+  padding: 10px 5px;
+}
+
+.content {
+  display: flex;
+  margin-top: 20px;
+}
+
+.image {
+  width: 200px;
+}
+
+.contentBlock {
+  margin-left: 15px;
+}

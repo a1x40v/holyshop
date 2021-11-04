@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  align-items: center;
+}
+
+.imageColumn {
+  width: 100px;
+  margin-right: 15px;
+}
+
+.contentColumn {
+}
+
+.title {
+  display: block;
+  margin: 0;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.title:hover {
+  color: blue;
+}

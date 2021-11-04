@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  proxy:
+    image: nginx:1.21.3-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./data:/sites/app
+  db:
+    image: postgres:14-alpine3.14
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: holyshop
+    volumes:
+      - holyshopdb:/var/lib/postgresql/data
+  api:
+    image: a1x40v/holyshop-api:1
+    command: sh -c './wait-for db:5432 -- dotnet API.dll'
+    environment:
+      DATABASE_URL: 'Server=db; Port=5432; User Id=admin; Password=secret; Database=holyshop'
+    depends_on:
+      - db
+  frontend:
+    image: a1x40v/holyshop-frontend:1
+    ports:
+      - 4000:4000
+
+volumes:
+  holyshopdb:
