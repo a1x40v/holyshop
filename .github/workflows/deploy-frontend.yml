@@ -11,10 +11,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
     - uses: actions/checkout@v2
@@ -32,4 +28,4 @@ jobs:
         push: true
         tags: a1x40v/holyshop:frontend
         file: ./frontend/Dockerfile.prod
-        context: ./frontend
+#         context: ./frontend
