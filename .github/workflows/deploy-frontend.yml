@@ -30,3 +30,4 @@ jobs:
       with:
         push: true
         tags: a1x40v/holyshop:frontend
+        file: ./frontend/Dockerfile.prod
