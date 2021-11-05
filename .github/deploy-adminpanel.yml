@@ -1,0 +1,37 @@
+name: deploy-adminpanel
+
+on:
+  push:
+    branches: [ master ]
+    paths: ['adminpanel/**']
+  workflow_dispatch: 
+
+jobs:
+
+  build_and_push:
+    name: Build React application
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    
+    - name: Build React app
+      working-directory: ./adminpanel
+      run: npm build
+    
+    - name: Copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: 20
+        source: "adminpanel/build"
+        target: "project/data/adminpanel"
+
+    
