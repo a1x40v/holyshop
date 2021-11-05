@@ -34,6 +34,6 @@ jobs:
         password: ${{ secrets.DO_PASSWORD }}
         port: 22
         source: "adminpanel/build/**"
-        target: "project/data/adminpanel/"
+        target: "/home/appadmin/project/data/adminpanel/"
 
     
