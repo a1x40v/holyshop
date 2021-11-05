@@ -8,11 +8,12 @@ on:
 
 jobs:
 
-  build:
-
+  build_and_push:
+    name: Build Docker image and push it to Dockerhub
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v2
       
     - name: Login to DockerHub
@@ -29,3 +30,23 @@ jobs:
         tags: a1x40v/holyshop:frontend
         file: ./frontend/Dockerfile.prod
         context: ./frontend
+
+  deploy:
+    name: Deploy image to Digital Ocean
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    
+    steps:
+    
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: ${{ secrets.DO_USERNAME }}
+          password: ${{ secrets.DO_PASSWORD }}
+          port: 22
+          script: |
+            cd project
+            docker pull a1x40v/holyshop:frontend
+            docker-compose -f docker-compose.prod.yml up -d --no-deps frontend
+            docker image prune -f
