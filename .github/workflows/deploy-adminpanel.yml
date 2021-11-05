@@ -32,7 +32,7 @@ jobs:
         host: ${{ secrets.DO_HOST }}
         username: ${{ secrets.DO_USERNAME }}
         password: ${{ secrets.DO_PASSWORD }}
-        port: 21
+        port: 22
         source: "adminpanel/build/**"
         target: "project/data/adminpanel"
 
