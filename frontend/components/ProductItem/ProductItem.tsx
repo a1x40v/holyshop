@@ -20,7 +20,7 @@ const ProductItem: React.FC<Props> = ({ product }) => {
         <Link href={`/products/${product.id}`}>
           <a className={style.title}>{product.title}</a>
         </Link>
-        <span>--- ${product.price} ---</span>
+        <span>${product.price}</span>
         <p>{product.description}</p>
       </div>
     </div>
