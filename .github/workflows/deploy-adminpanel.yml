@@ -26,14 +26,26 @@ jobs:
         npm install
         npm run build
     
-    - name: Copy file via ssh password
-      uses: appleboy/scp-action@master
+#     - name: Copy file via ssh password
+#       uses: appleboy/scp-action@master
+#       with:
+#         host: ${{ secrets.DO_HOST }}
+#         username: ${{ secrets.DO_USERNAME }}
+#         password: ${{ secrets.DO_PASSWORD }}
+#         port: 22
+#         source: "adminpanel/build/**"
+#         target: "project/data/adminpanel/"
+
+    
+    - name: Copy folder content recursively to remote
+      uses: garygrossgarten/github-action-scp@release
       with:
+        local: adminpanel/build
+        remote: project/data/adminpanel
         host: ${{ secrets.DO_HOST }}
         username: ${{ secrets.DO_USERNAME }}
         password: ${{ secrets.DO_PASSWORD }}
-        port: 22
-        source: "adminpanel/build/**"
-        target: "/home/appadmin/project/data/adminpanel/"
+        rmRemote: true
+
 
     
